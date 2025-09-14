@@ -1,0 +1,27 @@
+{
+  "name": "atendefacil",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000A\u0000t\u0000e\u0000n\u0000d\u0000e\u0000F\u0000a\u0000c\u0000i\u0000l\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js localhost 3000"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.7",
+    "cookie-session": "^2.1.1",
+    "express": "^5.1.0",
+    "express-flash": "^0.0.2",
+    "express-handlebars": "^8.0.3",
+    "express-session": "^1.18.2",
+    "mysql2": "^3.14.5",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7",
+    "session-file-store": "^1.5.0"
+  }
+}
