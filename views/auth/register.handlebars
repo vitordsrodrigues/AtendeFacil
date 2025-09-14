@@ -1,1 +1,23 @@
-<h1>register</h1>
+<div class="auth-container">
+    <h2><i class="bi bi-person-plus"></i> Registrar</h2>
+    <form action="/register" method="POST">
+        <div class="form-control">
+            <label for="name"><i class="bi bi-person"></i> Nome Completo</label>
+            <input type="text" name="name" placeholder="Digite seu nome completo" required>
+        </div>
+        <div class="form-control">
+            <label for="email"><i class="bi bi-envelope"></i> Email</label>
+            <input type="email" name="email" placeholder="Digite seu email" required>
+        </div>
+        <div class="form-control">
+            <label for="password"><i class="bi bi-lock"></i> Senha</label>
+            <input type="password" name="password" placeholder="Digite sua senha" required>
+        </div>
+        <div class="form-control">
+            <label for="confirmpassword"><i class="bi bi-lock-fill"></i> Confirmar Senha</label>
+            <input type="password" name="confirmpassword" placeholder="Confirme sua senha" required>
+        </div>
+        <input type="submit" value="Cadastrar">
+        <p>Já tem uma conta? <a href="/login">Clique aqui para fazer login</a></p>
+    </form>
+</div>
