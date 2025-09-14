@@ -8,8 +8,16 @@ const app = express()
 
 const conn = require('./db/conn')
 
+//Importando Rotas
+const AgendaRoutes = require('./routes/AgendaRoutes')
+
+//Importando Controllers
+const AgendaController = require('./controllers/AgendaController')
+
+//Configuração do Handlebars
 app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
+
 
 app.use(
     express.urlencoded({
@@ -47,6 +55,9 @@ app.use((req, res, next) => {
     }
     next()
 })
+
+app.use('/',AgendaRoutes)
+app.get('/', AgendaController.showAgenda)
 
 conn
 //.sync({force:true})
