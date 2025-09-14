@@ -8,11 +8,17 @@ const app = express()
 
 const conn = require('./db/conn')
 
+//Importando Models
+const User = require('./models/User')
+
+
 //Importando Rotas
 const AgendaRoutes = require('./routes/AgendaRoutes')
+const AuthRoutes = require('./routes/AuthRoutes')
 
 //Importando Controllers
 const AgendaController = require('./controllers/AgendaController')
+const AuthController = require('./controllers/AuthController')
 
 //Configuração do Handlebars
 app.engine('handlebars', exphbs.engine())
@@ -57,6 +63,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/',AgendaRoutes)
+app.use('/',AuthRoutes)
 app.get('/', AgendaController.showAgenda)
 
 conn
