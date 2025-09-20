@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/form.css">
+    <script src="/js/message.js" defer></script>
 </head>
 <body>
     <header>
@@ -32,10 +33,11 @@
         </nav>
     </header>
     {{#if messages.message}}
-        <div class="message">
-            {{messages.message}}
+        <div class="message {{#if messages.error}}error{{/if}}">
+            <div class="message-content">
+                {{messages.message}}
+            </div>
         </div>
-    
     {{/if}}
     {{{body}}}
 

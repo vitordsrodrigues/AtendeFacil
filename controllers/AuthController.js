@@ -14,6 +14,7 @@ module.exports = class AuthController {
         const user = await User.findOne({ where: { email: email } })
         if(!user) {
             req.flash('message', 'Usuário não encontrado.')
+            req.flash('error', true)
             res.render('auth/login')
             return
         }
@@ -22,7 +23,8 @@ module.exports = class AuthController {
         const passwordMatch = bcrypt.compareSync(password, user.password)
 
         if(!passwordMatch) {
-            res.flash('message', 'Senha incorreta.')
+            req.flash('message', 'Senha incorreta.')
+            req.flash('error', true)
             res.render('auth/login')
             return
         }
@@ -46,6 +48,7 @@ module.exports = class AuthController {
         //validações
         if(password != confirmpassword) {
             req.flash('message', 'As senhas não conferem, tente novamente.')
+            req.flash('error', true)
             res.render('auth/register')
             return
         }
@@ -54,6 +57,7 @@ module.exports = class AuthController {
         const checkIfUserExists = await User.findOne({ where: { email: email } })
         if(checkIfUserExists) {
             req.flash('message', 'O e-mail já está em uso.')
+            req.flash('error', true)
             res.render('auth/register')
             return
         }
@@ -74,6 +78,7 @@ module.exports = class AuthController {
         } catch (error) {
             console.error(error)
             req.flash('message', 'Erro ao cadastrar usuário.')
+            req.flash('error', true)
             res.render('auth/register')
         }
     }
