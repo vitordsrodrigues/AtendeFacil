@@ -1,9 +1,39 @@
 const User = require('../models/User')
+const bcrypt = require('bcryptjs')
 
 module.exports = class AuthController {
 
     static async login(req, res) {
         res.render('auth/login')
+    }
+
+    static async loginPost(req, res) {
+        const { email, password } = req.body
+
+        //verifica se o usuário existe
+        const user = await User.findOne({ where: { email: email } })
+        if(!user) {
+            req.flash('message', 'Usuário não encontrado.')
+            res.render('auth/login')
+            return
+        }
+
+        //verifica se a senha confere
+        const passwordMatch = bcrypt.compareSync(password, user.password)
+
+        if(!passwordMatch) {
+            res.flash('message', 'Senha incorreta.')
+            res.render('auth/login')
+            return
+        }
+
+        // Inicializa a sessão
+        req.session.userid = user.id
+
+        req.flash('message', 'Login realizado com sucesso!')
+        req.session.save(() => {
+            res.redirect('/')
+        })
     }
 
     static register(req, res) {
@@ -15,7 +45,7 @@ module.exports = class AuthController {
 
         //validações
         if(password != confirmpassword) {
-            res.flash('message', 'As senhas não conferem, tente novamente.')
+            req.flash('message', 'As senhas não conferem, tente novamente.')
             res.render('auth/register')
             return
         }
@@ -23,7 +53,7 @@ module.exports = class AuthController {
         //verifica se o usuário já existe
         const checkIfUserExists = await User.findOne({ where: { email: email } })
         if(checkIfUserExists) {
-            res.flash('message', 'O e-mail já está em uso.')
+            req.flash('message', 'O e-mail já está em uso.')
             res.render('auth/register')
             return
         }
@@ -37,15 +67,21 @@ module.exports = class AuthController {
             // Inicializa a sessão
             req.session.userid = createdUser.id
 
-            res.flash('message', 'Cadastro realizado com sucesso!')
+            req.flash('message', 'Cadastro realizado com sucesso!')
             req.session.save(() => {
                 res.redirect('/')
             })
         } catch (error) {
             console.error(error)
-            res.flash('message', 'Erro ao cadastrar usuário.')
+            req.flash('message', 'Erro ao cadastrar usuário.')
             res.render('auth/register')
         }
+    }
+
+    static async logout(req, res) {
+        req.session.destroy(() => {
+            res.redirect('/login')
+        })
     }
 
 }
