@@ -34,7 +34,7 @@ module.exports = class AuthController {
 
         req.flash('message', 'Login realizado com sucesso!')
         req.session.save(() => {
-            res.redirect('/')
+            res.redirect('/dashboard')
         })
     }
 
@@ -73,7 +73,7 @@ module.exports = class AuthController {
 
             req.flash('message', 'Cadastro realizado com sucesso!')
             req.session.save(() => {
-                res.redirect('/')
+                res.redirect('/dashboard')
             })
         } catch (error) {
             console.error(error)
@@ -99,7 +99,7 @@ module.exports = class AuthController {
                 
                 req.flash('message', 'Login realizado com sucesso!')
                 req.session.save(() => {
-                    res.redirect('/')
+                    res.redirect('/dashboard')
                 })
             } else {
                 req.flash('message', 'Erro ao fazer login com Google.')

@@ -19,10 +19,12 @@ const User = require('./models/User')
 //Importando Rotas
 const AgendaRoutes = require('./routes/AgendaRoutes')
 const AuthRoutes = require('./routes/AuthRoutes')
+const PagesRoutes = require('./routes/PagesRoutes')
 
 //Importando Controllers
 const AgendaController = require('./controllers/AgendaController')
 const AuthController = require('./controllers/AuthController')
+const PagesController = require('./controllers/PagesController')
 
 //Configuração do Handlebars
 app.engine('handlebars', exphbs.engine())
@@ -72,7 +74,8 @@ app.use((req, res, next) => {
 
 app.use('/',AgendaRoutes)
 app.use('/',AuthRoutes)
-app.get('/', AgendaController.showAgenda)
+app.use('/',PagesRoutes)
+app.get('/', PagesController.showAgenda)
 
 conn
 //.sync({force:true})
