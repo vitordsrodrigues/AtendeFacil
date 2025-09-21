@@ -14,7 +14,12 @@ const User = db.define('User', {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true // Permite null para usuários que fazem login pelo Google
+    },
+    googleId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
     }
 })
 

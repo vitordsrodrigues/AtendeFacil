@@ -89,4 +89,29 @@ module.exports = class AuthController {
         })
     }
 
+    // Callback do Google OAuth
+    static async googleCallback(req, res) {
+        try {
+            // O usuário já foi autenticado pelo Passport
+            if (req.user) {
+                // Inicializa a sessão
+                req.session.userid = req.user.id
+                
+                req.flash('message', 'Login realizado com sucesso!')
+                req.session.save(() => {
+                    res.redirect('/')
+                })
+            } else {
+                req.flash('message', 'Erro ao fazer login com Google.')
+                req.flash('error', true)
+                res.redirect('/login')
+            }
+        } catch (error) {
+            console.error('Erro no callback do Google:', error)
+            req.flash('message', 'Erro interno do servidor.')
+            req.flash('error', true)
+            res.redirect('/login')
+        }
+    }
+
 }
